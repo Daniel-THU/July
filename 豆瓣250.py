@@ -36,7 +36,7 @@ def parse_html(html):
         movie_name = detail.find('span', attrs={'class': 'title'}).getText()
 
         movie_name_list.append(movie_name)
-
+# 翻页
     next_page = soup.find('span', attrs={'class': 'next'}).find('a')
     if next_page:
         return movie_name_list, DOWNLOAD_URL + next_page['href']
