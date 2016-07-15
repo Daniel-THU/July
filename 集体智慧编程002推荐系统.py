@@ -29,7 +29,7 @@ critics={'Lisa Rose': {'Lady in the Water': 2.5, 'Snakes on a Plane': 3.5,
 
 
 
-# 欧几里得距离返回相关度  1表示相同偏好  
+# 欧几里得距离返回相关度  1表示相同偏好  0 表示偏好完全不同
 
 from math import sqrt
 
@@ -85,7 +85,7 @@ def sim_pearson(prefs, person1, person2):
 
 # 题目继续拓展  输入的任一人名， 输出其他人跟他的近似度列表,同时输出 相似度和人名
 def topMatches(prefs, person, n=5, similarity = sim_pearson):
-    scores = [(similarity(prefs, person, other),other) for other in prefs if other != person]
+    scores = [(similarity(prefs, person, other),other) for other in prefs if other != person] #得到一个带index的元组，便于识别
     
     scores.sort()
     scores.reverse()
@@ -158,21 +158,4 @@ def calculateSimilarItems(prefs, n=10):
 #        pass
 #
 
-
-def loadMovieLens(path='/Users/liulei/Desktop/python这周看完之前的代码/Programming collective intelligence/ml'):
-    movies={}
-    for line in open(path +'/u.item'):
-        (id, title) = line.split('|')[0:2]
-        movies[id]=title
-    
-    
-    prefs={}
-    for line in open(path+'/u.data'):
-        (user,movieid,rating,ts)=line.split('\t')
-        prefs.setdefault(user,{})
-        prefs[user][movies[movieid]]=float(rating)
-    return prefs
-    
-prefs=  loadMovieLens()
-print prefs['87']
     
